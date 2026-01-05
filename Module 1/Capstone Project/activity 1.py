@@ -37,6 +37,6 @@ print(df['thal'].value_counts())
 
 sns.countplot(x='sex', data=df, palette='husl', hue='target')
 
-sns.countplot(x='target',palette='Bu0n', data=df )
+sns.countplot(x='target',palette='BuGn', data=df )
 
 sns.countplot(x='ca', hue='target', data=df)
