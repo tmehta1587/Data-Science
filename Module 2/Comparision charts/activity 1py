@@ -1,0 +1,27 @@
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+data = pd.read_csv('gapminder(2007).csv')
+
+print(data.head())
+
+print(data.info())
+
+avg_data = data.groupby('continent').mean(numeric_only=True).reset_index()
+
+print(avg_data)
+
+plt.bar(avg_data['continent'], avg_data['life_exp'], color='teal')
+plt.xlabel('Continent')
+plt.ylabel('Average Life Expectancy')
+plt.show()
+
+plt.bar(avg_data['continent'], avg_data['gdp_cap'], color='darkred')
+plt.xlabel('Continent')
+plt.ylabel('Average GDP per capita')
+plt.show()
+
+sns.countplot(x=data['continent'],palette='winter')
