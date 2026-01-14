@@ -8,9 +8,10 @@ data = pd.read_csv('gapminder(2007).csv')
 
 print(data.head())
 
-grouped_df = data.groupby('continent').mean()
-grouped_df = grouped_df.reset_index()
+grouped_df = data.groupby('continent').mean(numeric_only=True).reset_index()
 print(grouped_df)
+plots = sns.barplot(x=grouped_df['continent'], y=grouped_df['life_exp'], color='teal')
+plt.show()
 plots = sns.barplot(x=grouped_df['continent'], y=grouped_df['life_exp'], color='teal')
 
 
