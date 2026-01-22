@@ -1,4 +1,4 @@
-
+"""
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -19,6 +19,7 @@ for label in labels:
     sns.boxplot(data[label])
     plt.show()
 
+
 numeric_data = data.select_dtypes(include='number')
 
 plt.figure(figsize=(10,6))
@@ -38,3 +39,4 @@ labels = ['Id', 'SepalLengthCm', 'SepalWidthCm', 'PetalWidthCm']
 for label in labels :
     print('skewness of', label)
     print(data[label].skew())
+"""
