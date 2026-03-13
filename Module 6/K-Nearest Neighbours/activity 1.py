@@ -25,7 +25,7 @@ for a in range(1, 40):
     error_rates.append(np.mean(y_test - preds))
 
 plt.figure(figsize=(10,7))
-plt.plot(range(1,40),error_rates,color='blue', linestyle='dashed', marker='O', markerfacecolor='red', markersize=10)
+plt.plot(range(1,40),error_rates,color='blue', linestyle='dashed', marker='o', markerfacecolor='red', markersize=10)
 plt.title('Error Rate vs. K.Value')
 plt.xlabel('K')
 plt.ylabel('Error Rate')
