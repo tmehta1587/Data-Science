@@ -1,6 +1,6 @@
 import pandas as pd 
 
-from mlxtend.frequent_patterns import apriori, association_rules 
+from mlxtend.frequent_patterns import apriori
 dataset = pd.read_csv('customers.csv')
 
 frequent_itemsets = apriori(dataset, min_support=0.01, use_colnames=True)
