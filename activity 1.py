@@ -1,52 +1,35 @@
 
+
 import cv2
-import numpy as np
+import numpy as np 
+import math
+from vcam import vcam,meshGen
+import matplotlib.pyplot as plt
 
-img = cv2.imread("shapes.png")
-
-gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
 
-_, thresh = cv2.threshold(gray, 50, 255, cv2.THRESH_BINARY)
+plt.figure(figsize=(20,20))
 
-contours, hierachy = cv2.findContours(thresh, cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
+img = cv2.imread("minions.jpg")
+H,W = img.shape[:2]
 
-for cnt in contours:
-    area = cv2.contourArea(cnt)
-    if area < 100:
-        continue
+c1 = vcam(H=H, W=W)
+plane = meshGen(H, W)
 
-    if area > 100000:
-        continue
+c1 = vcam(H=H,W=W)
 
-    approx = cv2.approxPolyDP(cnt, 0.01*cv2.arclength(cnt, True),True)
+plane = meshGen(H,W)
 
-    n = len(approx)
+plane.Z += 20*np.exp(-0.5*((plane.Y*1.0/plane.H)/0.1)**2)/(0.1*np.sqrt(2*np.pi))
 
-    if n == 6:
-        print("We have a hexgaon here")
-        cv2.drawContours(img, [cnt], 0, (255,0,255),3)
+pts3d = plane.getPlane()
 
-    elif n == 3: 
-        print("We have found a triangle")
-        cv2.drawCountors(img, [cnt],0,(0,255,0),3)
+pts2d = c1.project(pts3d)
+map_x,map_y = c1.getMaps(pts2d)
 
-    elif n>9:
-        print("We found a circle")
-        cv2.drawCountor(img, [cnt], 0,(0, 255, 0),3)
+output = cv2.remap(img, map_x,map_y,interpolation=cv2.INTER_LINEAR)
 
-    elif n == 4:
-        x, y, w, h = cv2.boundingReact(approx)
-        aspect_ratio = float(w) / h
-        if 0.95 <= aspect_ratio <= 1.05:
-            print("We found a square")
-            cv2.drawCountors(img, [cnt], 0, (255, 255, 0), 3)
-        else: 
-            print("We found a rectangle")
-            cv2.drawCountours(img, [cnt], 0, (255, 0, 0), 3)
-
-cv2.imshow("Detected Shapes", img)
-
-cv2.waitKey(0)
-cv2.destroyAllWindows()
-
+plt.subplot(1,2,1)
+plt.title("Funny Mirror")
+plt.imshow(cv2.cvtColor(np.hstack((img,output)), cv2.COLOR_BGR2RGB))
+plt.show()
