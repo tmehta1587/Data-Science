@@ -1,0 +1,30 @@
+
+
+<html>
+    <head> 
+        <link rel="stylesheet" type="text/css" href="style.css"> </link>
+    </head>
+    
+    <body>
+        <div align="center">
+            <div class="header">
+                <h1 class="header">
+                    Register
+                </h1>
+            </div>
+            <h2 class="word">
+                <form action="/register" method="POST">
+                    <div class="msg">{{msg}}</div>
+                    <input id="username" name="username" type="text" placeholder="Enter your name" class="textbook"> <br><br>
+
+                    <input id="password" name="password" type="text" placeholder="Enter your password" class="textbook"><br><br>
+
+                    <input id="email" value="text" placeholder="Enter your Email" class="textbook"><br><br>
+
+                    <input type="submit" value="Sign up" class="btn"><br><br>
+                </form>
+            </h2>
+            <p class="bottom"> Already have account? <a class="bottom" href="/login"> Sign in here </a></p>
+        </div>
+    </body>
+</html>
