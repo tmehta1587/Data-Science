@@ -1,12 +1,12 @@
 
-from flask import flask, render_template, request
+from flask import Flask, render_template, request
 import mysql.connector 
 import re
 app = Flask(__name__)
 @app.route('/login', methods=['GET','POST'])
 def login():
     msg=''
-    if request.method == 'POST' and 'username'in request.form an 'password' in request.form:
+    if request.method == 'POST' and 'username'in request.form and 'password' in request.form:
 
         username = request.form['username']
         password = request.form['password']
@@ -49,4 +49,22 @@ def login():
             print(account)
             if account: 
                 msg = 'Account already exists'
-            elif = not re.match(r'^[^\d]*@[^\d]*\.\.[^\d]*$', email):
+            elif not re.match(r'^[^\d]*@[^\d]*\.\.[^\d]*$', email):
+                msg = 'Invalid email address!'
+            elif not re.match(r'(A-Za-z0-9)+', username):
+                msg = 'Username must contain only characters and numbers!'
+            elif not username or not password or not email:
+                msg = 'Kindly fill the details!'
+            else : 
+                mycursor.execute('INSERT INTO LoginDetails VALUES (NULL, %s, %s, %s)', (username, password, email))
+                mydb.commit()
+                msg = 'Your Registration is Successful'
+                name = username
+                return render_template('index.html', msg=msg)
+def logout():
+    name = ''
+    id = ''
+    msg = 'Logged out successfully'
+    return render_template('loginpage.html', msg=msg, name=name, id=id)
+if __name__ == "__main__":
+    app.run(debug=True)
